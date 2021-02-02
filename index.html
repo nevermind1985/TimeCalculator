@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="./css/time_calculator.css">
+		<script type="text/javascript" src="./js/time_calculator.js"></script>
+		<title>Working Time Calculator</title>
+		<link rel="icon" href="./images/timeCalcIcon.png">
+	</head>
+	<body onload="startTime()">
+		<form>
+			<div id="bpContainer" class="infoOff" onclick="closeBp()">
+				<div id="buonoPastoAward">
+					<center>
+						<table>
+							<tr>
+								<td>
+									<br/><br/><br/><br/><br/>
+								</td>
+							</tr>
+							<tr>
+								<td class="buonoPastoTable">
+									<img src="./images/buonoPasto.png" class="buonoPasto"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+			</div>
+			<div id="infoContainer" class="infoOff" onclick="closeInfo()">
+				<div id="closeInfo">
+					<center>
+						<table>
+							<tr>
+								<td>
+									<img src="./images/icons/close.png" class="icon littleMargin" onclick="closeInfo()"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				<div id="manufacturerInfo">
+					<center>
+						<table>
+							<tr>
+								<td>
+									<br/><br/>
+									<img src="./images/companyLogo.png" />
+								</td>
+							</tr>
+							<tr>
+								<td class="center black">
+									<br/>
+									TIME CALCULATOR<br/>
+									Version 3.5 [20210202]<br/><br/>
+									<u>Changelog:</u><br/>
+									<ul class="changelog">
+										<li>Aggiunto timer buono pasto</li>
+										<li>Bugfix minori</li>
+									</ul>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+			</div>
+			<div id="timeContainer">
+				<div id="toolsWorkingTime">
+					<center>
+						<table>
+							<tr>
+								<td>
+									<img src="./images/icons/addTime.png" class="icon littleMargin" onclick="addTime()" title="Aggiungi una nuova entrata ed uscita"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				<div id="tulipSection">
+					<center>
+						<table>
+							<tr>
+								<td>
+									<img src="./images/icons/info.png" class="icon littleMargin" onclick="showTulip()" title="Informazioni su Time Calculator"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				<div id="infoSection">
+					<center>
+						<table>
+							<tr>
+								<td>
+									<img src="./images/icons/info.png" class="icon littleMargin" onclick="showInfo()" title="Informazioni su Time Calculator"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				<div id="audioOption" class="bgGreen">
+					<center>
+						<table>
+							<tr>
+								<td>
+									<img src="./images/icons/audioOn.png" id="audioOn" class="icon littleMargin" onclick="disableAudio()" title="Audio acceso"/>
+									<img src="./images/icons/audioOff.png" id="audioOff" class="icon littleMargin invisible" onclick="enableAudio()" title="Audio spento"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				<div id="workingTime">
+					<center>
+						<table class="timeTable" id="timeTable">
+							<tr>
+								<td id="lblEnt1">Entrata 1</td>
+								<td id="c_ent1" class="colTime">
+									<input type="time" id="ent1" onfocusout="calcolaOrari()"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="spacer">
+									<hr>
+								</td>
+							</tr>
+							<tr>
+								<td>Uscita 1</td>
+								<td id="c_usc1" class="colTime">
+									<input type="time" id="usc1" onfocusout="calcolaOrari()"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="spacer">
+									<hr>
+								</td>
+							</tr>
+							<tr>
+								<td>Entrata 2</td>
+								<td id="c_ent2" class="colTime">
+									<input type="time" id="ent2" onfocusout="calcolaOrari()"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="spacer">
+									<hr>
+								</td>
+							</tr>
+							<tr>
+								<td>Uscita 2</td>
+								<td id="c_usc2" class="colTime">
+									<input type="time" id="usc2" onfocusout="calcolaOrari()"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				
+				<div id="toolsWorkingTimeMobile">
+					<center>
+						<table>
+							<tr>
+								<td onclick="addTime()">
+									<img src="./images/icons/addTime.png" class="icon" title="Aggiungi una nuova entrata ed uscita"/> 
+									AGGIUNGI UNA NUOVA SEZIONE TIMBRATURE
+									<img src="./images/icons/addTime.png" class="icon" title="Aggiungi una nuova entrata ed uscita"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				
+				<div id="loadFromTulipMobile">
+					<input type="text" id="tulipUrlMobile" class="tulipText" placeholder="Copia le ore dalla riga tulip qui" title="ES: E09:00 U13:00 E14:00..." onfocusout="caricaDaTulipMobile()" autofocus></input>
+					<input type="button" value="CARICA" onclick="caricaDaTulipMobile()" class="tulipButton"></input>
+				</div>
+				
+				<div id="permissions">
+					<center>
+						<table class="timeTable">
+							<tr>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Permessi</td>
+								<td class="colTime">
+									<input type="time" id="oPER" onchange="calcolaOrari()"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				
+				<div id="exitPrevision">
+					<h2>&nbsp;&nbsp;&nbsp;GO HOME AT:</h2>
+					<br/>
+					<input type="text" id="estUsc" class="outbox" readonly></input>
+				</div>
+				
+				<div id="travelTime">
+					<center>
+						<table class="timeTable">
+							<tr>
+								<td class="black">Partenza 1</td>
+								<td id="c_ovP1" class="colTime">
+									<input type="time" id="ovP1" onfocusout="calcolaOrari()"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="black">Arrivo 1</td>
+								<td id="c_ovA1" class="colTime">
+									<input type="time" id="ovA1" onfocusout="calcolaOrari()"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="spacer black">
+									<hr>
+								</td>
+							</tr>
+							<tr>
+								<td class="black">Partenza 2</td>
+								<td id="c_ovP2" class="colTime">
+									<input type="time" id="ovP2" onfocusout="calcolaOrari()"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="black">Arrivo 2</td>
+								<td id="c_ovA2" class="colTime">
+									<input type="time" id="ovA2" onfocusout="calcolaOrari()"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="spacer black">
+									<hr>
+								</td>
+							</tr>
+							<tr>
+								<td class="black">Partenza 3</td>
+								<td id="c_ovP3" class="colTime">
+									<input type="time" id="ovP3" onfocusout="calcolaOrari()"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="black">Arrivo 3</td>
+								<td id="c_ovA3" class="colTime">
+									<input type="time" id="ovA3" onfocusout="calcolaOrari()"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				
+				<div id="otherInfo">
+					<center>
+						<table class="timeTable">
+							<tr>
+								<td>Ore viaggio a completare</td>
+								<td class="colTime">
+									<input type="time" id="ovAC" readonly/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="spacer">
+									<hr>
+								</td>
+							</tr>
+							<tr>
+								<td>Ore viaggio extra</td>
+								<td class="colTime">
+									<input type="time" id="ovEX" readonly/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="spacer">
+									<hr>
+								</td>
+							</tr>
+							<tr>
+								<td>Ore lavorate</td>
+								<td class="colTime">
+									<input type="time" id="oLAV" readonly/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="spacer">
+									<hr>
+								</td>
+							</tr>
+							<tr>
+								<td>Strardinari</td>
+								<td class="colTime">
+									<input type="time" id="oSTR" readonly/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="spacer">
+									<hr>
+								</td>
+							</tr>
+							<tr>
+								<td>Orario</td>
+								<td class="colTime">
+									<input type="text" id="orario" class="orario" readonly/>
+								</td>
+							</tr>
+							<tr>
+								<td>Countdown</td>
+								<td class="colTime">
+									<input type="text" id="countdown" class="orario red" readonly/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				
+				<div id="buonoPastoTimer" class="infoOff">
+					<table>
+						<tr>
+							<td>
+								<img src="./images/bpOFF.png" id="bpOff" class="icon25 infoOn" title="Buono pasto non ancora raggiunto"/> 
+								<img src="./images/bpON.png" id="bpOn" class="icon25 infoOff" title="Buono pasto raggiunto"/> 
+							</td>
+							<td class="colTime">
+								<input type="text" id="bpCountdown" class="orario red" readonly/>
+								<input type="hidden" id="estBP" />
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div id="resetButton">
+					<input type="reset" onclick="pulisciAll()" id="resetBtn"></input>
+				</div>
+				
+				<div id="loadFromTulip">
+					<input type="text" id="tulipUrl" class="tulipText" placeholder="Copia le ore dalla riga tulip qui" title="ES: E09:00 U13:00 E14:00..." onfocusout="caricaDaTulip()" autofocus></input>
+					<input type="button" value="CARICA" onclick="caricaDaTulip()" class="tulipButton"></input>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,588 @@
+var hasCountDown = false;
+var hasBpCountDown = false;
+var timeId = 2; //the standard number of elements in page
+var canStartAudio = false;
+var audioEnabled = true;
+
+function calcolaOrari() {
+	canStartAudio = false;
+	//PERMESSI
+	var d_oPER = document.getElementById('oPER').value;
+	//ORE VIAGGIO 1
+	var d_ovP1 = document.getElementById('ovP1').value;
+	var d_ovA1 = document.getElementById('ovA1').value;
+	//ORE VIAGGIO 2
+	var d_ovP2 = document.getElementById('ovP2').value;
+	var d_ovA2 = document.getElementById('ovA2').value;
+	//ORE VIAGGIO 3
+	var d_ovP3 = document.getElementById('ovP3').value;
+	var d_ovA3 = document.getElementById('ovA3').value;
+	
+	var workedTime = "00:00";
+	var oldUsc = "";
+	var lastEnt = "";
+	var testTime = "";
+	var filledTime = 0;
+	var partialTime = 0;
+	for (var i = 1; i <= timeId; i++) {
+		var ent = document.getElementById('ent'+i).value;
+		var usc = document.getElementById('usc'+i).value;
+		
+		if(ent != "") {
+			lastEnt = ent;
+		}
+		
+		if(oldUsc == "") {
+			oldUsc = usc;
+		} else {
+			if(usc != "") {
+				testTime = calcolaDiff(oldUsc, ent, true, true);
+				if(testTime == "") {
+					return;
+				}
+				oldUsc = usc;
+			}
+		}
+		if(ent != "" && usc != "") {
+			workedTime = calcolaSum(workedTime, calcolaDiff(ent, usc, true));
+			filledTime++;
+			partialTime = 0;
+		} else if (ent != "" && usc == "") {
+			partialTime = 1;
+		}
+	}
+	
+	var r1 = calcolaDiff(workedTime, "08:00");
+	var rbp = calcolaDiff(workedTime, "06:00");
+	if(d_oPER != "") {
+		r1 = calcolaDiff(d_oPER, r1);
+	}
+	document.getElementById('oLAV').value = workedTime;
+	if(partialTime == 1) {
+		document.getElementById('estUsc').value = calcolaSum(lastEnt, r1);
+		document.getElementById('estBP').value = calcolaSum(lastEnt, rbp);
+			
+		hasCountDown = true;
+		if(filledTime >= 1) {
+			canStartAudio = true;
+		} 
+	} else {
+		hasCountDown = false;
+		document.getElementById('estUsc').value = "";
+		document.getElementById('countdown').value = "";
+	}
+		
+	//ORE LAVORATE
+	var d_oLAV = document.getElementById('oLAV').value;
+	
+	//CALCOLO ORE VIAGGIO
+	var ov1 = calcolaOv(d_ovP1, d_ovA1, 'ovP1', 'ovA1');
+	var ov2 = calcolaOv(d_ovP2, d_ovA2, 'ovP2', 'ovA2');
+	var ov3 = calcolaOv(d_ovP3, d_ovA3, 'ovP3', 'ovA3');
+	
+	var ov_TOT = calcolaSum(ov1,ov2);
+	ov_TOT = calcolaSum(ov_TOT, ov3);
+	
+	if(ov1=="00:00" && ov2=="00:00" && ov3=="00:00") {
+		//NESSUNA ORA VIAGGIO INSERITA
+		document.getElementById('ovAC').value = "";
+	} else if(d_oLAV != "") {
+		var ol = d_oLAV;
+		if(d_oPER != "") {
+			//AGGIUNGO EVENTUALI PERMESSI
+			ol = calcolaSum(d_oLAV, d_oPER);
+		}
+		ol = calcolaDiff(ol,"08:00");
+		if(ol == "00:00") {
+			//SONO TUTTE ORE EXTRA LAVORO
+			document.getElementById('ovEX').value = ov_TOT;
+			document.getElementById('ovAC').value = "00:00";
+		} else {
+			//SMISTO TRA ORE VIAGGIO E ORE EXTRA
+			if(calcolaDiff(ol, ov_TOT) == "00:00") {
+				document.getElementById('ovAC').value = ov_TOT;
+				document.getElementById('ovEX').value = "00:00";
+			} else {
+				var ex = calcolaDiff(ol, ov_TOT);
+				var ac = calcolaDiff(ex, ov_TOT);
+				document.getElementById('ovAC').value = ac;
+				document.getElementById('ovEX').value = ex;
+			}
+		}
+	} else {
+		//SONO TUTTE ORE VIAGGIO
+		document.getElementById('ovAC').value = ov_TOT;
+	}
+	
+	//CALCOLO STRAORDINARI
+	var st = d_oLAV;
+	if(d_oPER != "") {
+		//AGGIUNGO EVENTUALI PERMESSI
+		st = calcolaSum(d_oLAV, d_oPER);
+	}
+	
+	if(calcolaDiff("08:00",st)!="00:00") {
+		document.getElementById('oSTR').value = calcolaDiff("08:00",st);
+	} else {
+		document.getElementById('oSTR').value = "";
+	}
+	calcolaBuonoPastoAlert();
+}
+
+function calcolaBuonoPastoAlert() {
+	//SE ARRIVA DA TULIP
+	var tu = document.getElementById('tulipUrl').value;
+	if(tu == "") {
+		tu = document.getElementById('tulipUrlMobile').value;
+	}
+	if(tu == "") {
+		return;
+	}
+	
+	//SE LE TIMBRATURE SONO ALMENO 4 BIOMETRICHE
+	var timbrature = contaTimbratureTulipValide(tu);
+	var oreLavorate = 0;
+	if(timbrature >= 4) {
+	//SE ALMENO 6 ORE LAVORATE
+		var oLav = document.getElementById('oLAV').value;
+		if(oLav != "") {
+			var oLavSplit = oLav.split(":");
+			oreLavorate = parseInt(oLavSplit[0]);
+		}
+		
+		if(oreLavorate >= 6) {
+			document.getElementById('bpContainer').classList.remove('infoOff');
+			document.getElementById('bpContainer').classList.add('infoOn');
+		}
+	} else if(timbrature >= 3) {
+		hasBpCountDown = true;
+		document.getElementById('buonoPastoTimer').classList.remove('infoOff');
+		document.getElementById('buonoPastoTimer').classList.add('infoOn');
+	} else {
+		hasBpCountDown = false;
+	}
+}
+
+function calcolaDiff(d_start, d_end) {
+	return calcolaDiff(d_start, d_end, false);
+}
+
+function calcolaDiff(d_start, d_end, sendAlert) {
+	return calcolaDiff(d_start, d_end, sendAlert, false);
+}
+
+function calcolaDiff(d_start, d_end, sendAlert, reverseCheck) {
+	start = d_start.split(":");
+	end = d_end.split(":");
+	var startDate = new Date(0, 0, 0, start[0], start[1], 0);
+	var endDate = new Date(0, 0, 0, end[0], end[1], 0);
+	var diff = endDate.getTime() - startDate.getTime();
+	
+	var hours = Math.floor(diff / 1000 / 60 / 60);
+	diff -= hours * 1000 * 60 * 60;
+	var minutes = Math.floor(diff / 1000 / 60);
+	
+	if(hours < 0) {
+		if(sendAlert == true) {
+			if(reverseCheck == true) {
+				alert('Orario di uscita e di rientro non coerenti!');
+			} else {
+				alert('Orario di inizio e orario di fine non coerenti!');
+			}
+			return "";
+		} else {
+			return "00:00";
+		}
+	}
+	
+	if(hours < 10) {
+		hours = "0"+hours;
+	}
+	
+	if(minutes < 10) {
+		minutes = "0"+minutes;
+	}
+	
+	return hours+":"+minutes;
+}
+
+function calcolaSum(d_start, d_end) {
+	start = d_start.split(":");
+	end = d_end.split(":");
+	
+	hours = parseInt(start[0])+parseInt(end[0]);
+	minutes = parseInt(start[1])+parseInt(end[1]);
+	hours = Math.floor(hours + minutes/60);
+	minutes = minutes%60;
+	
+	if(hours < 10) {
+		hours = "0"+hours;
+	} else if(hours > 23) {
+		hours = hours-24;
+		if(hours < 10) {
+			hours = "0"+hours;
+		}
+	}
+	
+	if(minutes < 10) {
+		minutes = "0"+minutes;
+	}
+
+	return hours+":"+minutes;
+}
+
+function calcolaOv(d_start, d_end, c_start, c_end) {
+	if(d_start != "") {
+		if(d_end != "") {
+			pulisci(c_end);
+			pulisci(c_start);
+			if(calcolaDiff(d_start, d_end) != "00:00") {
+				return calcolaDiff(d_start, d_end);
+			} else {
+				alert('Orario di arrivo non coerente con orario di partenza');
+				document.getElementById(c_end).value = "";
+			}
+		} else {
+			//DEVO EVIDENZIARE MANCANZA ORA DI ARRIVO
+			evidenzia(c_end);
+		}
+	} else if(d_end != "") {
+		//DEVO EVIDENZIARE MANCANZA ORA DI PARTENZA
+		evidenzia(c_start);
+	}
+	return "00:00";
+}
+
+function evidenzia(cName) {
+	document.getElementById('c_'+cName).style = "border:1px solid red;";
+}
+
+function pulisci(cName) {
+	document.getElementById('c_'+cName).style = "";
+}
+
+function pulisciAll() {
+	hasCountDown = false;
+	hasBpCountDown = false;
+	document.getElementById('countdown').classList.remove('green')
+	pulisci('ent1');
+	pulisci('usc1');
+	pulisci('ent2');
+	pulisci('usc2');
+	pulisci('ovP1');
+	pulisci('ovA1');
+	pulisci('ovP2');
+	pulisci('ovA2');
+	pulisci('ovP3');
+	pulisci('ovA3');
+	
+	if(timeId > 2) {
+		for(var i = 3; i<=timeId; i++) {
+			removeElement("timeId-"+i);
+		}
+		timeId = 2;
+	}
+	
+	document.getElementById('buonoPastoTimer').classList.remove('infoOn');
+	document.getElementById('buonoPastoTimer').classList.remove('infoOff');
+	document.getElementById('buonoPastoTimer').classList.add('infoOff');
+}
+
+function clickReset() {
+	document.getElementById('resetBtn').click();;
+}
+
+function contaTimbratureTulipValide(campoTulip) {
+	var campoIn = ""+campoTulip;
+	var el = campoIn.split(" ");
+	var contaTulip = 0;
+	if(campoIn == "") {
+		return;
+	}
+	try {
+		for (var i = 0; i < el.length; i++) {
+			if(el[i].includes("[W]") == false && el[i]!="") {
+				contaTulip++;
+			}
+		}
+	} catch (error){}
+	
+	return contaTulip;
+}
+
+function caricaDaTulipMobile() {
+	var rigaTulip = (document.getElementById('tulipUrlMobile').value).trim();
+	caricaDaTulipMain(rigaTulip);
+}
+
+function caricaDaTulip() {
+	var rigaTulip = (document.getElementById('tulipUrl').value).trim();
+	caricaDaTulipMain(rigaTulip);
+}
+
+function clearBaseBadges() {
+	document.getElementById('ent1').value = "";
+	document.getElementById('usc1').value = "";
+	document.getElementById('ent2').value = "";
+	document.getElementById('usc2').value = "";
+}
+
+function caricaDaTulipMain(campoTulip) {
+	pulisciAll();
+	clearBaseBadges();
+	
+	var campoIn = ""+campoTulip;
+	var el = campoIn.split(" ");
+	var chk=false;
+	var elTest = 0;
+	var elId = 1;
+	
+	if(campoIn == "") {
+		clickReset();
+		return;
+	} 
+	try {
+		for (var i = 0; i < el.length; i++) {
+			elTest = i+1;
+			if(i > 3 && elTest%2==1) { // I must add automatically new enter and exit section
+				addTime();
+			}
+			if(elTest%2==0) {
+				chk = checkTimbraturaTulip((el[i].split("[W]"))[0],'usc'+elId,'U');
+				elId++;
+			} else {
+				chk = checkTimbraturaTulip((el[i].split("[W]"))[0],'ent'+elId,'E');
+			}
+			if(!chk) {
+				return;
+			}
+		}		
+	} catch (error){}
+	
+	calcolaOrari();
+}
+
+function checkTimbraturaTulip(campoTulip, campoHtml, checkTipo) {
+	var tipoTimbratura = campoTulip.charAt(0);
+	var orario = campoTulip.substring(1);
+	if(tipoTimbratura == checkTipo) {
+		var oraSplit = orario.split(":");		
+		try {
+			if(oraSplit[0].length == 2 && oraSplit[1].length == 2) {
+				document.getElementById(campoHtml).value = orario;
+				return true;
+			} else {
+				alert('ER1 - La stringa inserita non è corretta! ');
+				return false;
+			}
+		} catch (error) {
+			alert('ER2 - La stringa inserita non è corretta!');
+			clickReset();
+			return false;
+		}
+	}
+	alert('ER3 - La stringa inserita non è corretta!');
+	clickReset();
+	return false;
+}
+
+function startTime() {
+	var today = new Date();
+	var h = today.getHours();
+	var m = today.getMinutes();
+	var s = today.getSeconds();
+	h = checkTime(h);
+	m = checkTime(m);
+	s = checkTime(s);
+	document.getElementById('orario').value = "    " + h + ":" + m + ":" + s;
+	if(hasCountDown) {
+		startCountDown();
+	}
+	if(hasBpCountDown) {
+		startBPCountDown();
+	}
+	var t = setTimeout(startTime, 500);
+}
+
+function startCountDown() {
+	var goOutAt = document.getElementById('estUsc').value;
+	var segno = "";
+	
+	var today = new Date();
+	var h = today.getHours();
+	var m = today.getMinutes();
+	var s = today.getSeconds(); 
+	
+	var goOutAtSpl = goOutAt.split(":");
+	var hu = goOutAtSpl[0];
+	var mu = goOutAtSpl[1];
+	
+	var t = (h * 3600) + (m * 60) + s;
+	var tu = (hu * 3600) + (mu * 60);
+	
+	var td = tu -t;
+	
+	var hd = Math.floor(td/3600);
+	var md = Math.floor((td%3600)/60);
+	var sd = td%60;
+	
+	if(hd < 0 || md < 0 || sd < 0) {
+		if(hd < 0)
+			hd = (hd * (-1))-1;
+		if(md < 0)
+			md = (md * (-1))-1;
+		if(sd < 0)
+			sd = sd * (-1);
+		if(!document.getElementById('countdown').classList.contains('green')) {
+			document.getElementById('countdown').classList.add('green');
+			startAudio();
+		}
+		segno = "    ";
+	} else {
+		if(document.getElementById('countdown').classList.contains('green')) {
+			document.getElementById('countdown').classList.remove('green');
+		}
+		segno = "-";
+	}
+	document.getElementById('countdown').value = segno + checkTime(hd) + ":" + checkTime(md) + ":" + checkTime(sd);
+}
+
+function startBPCountDown() {
+	var goOutAt = document.getElementById('estBP').value;
+	var segno = "";
+	
+	var today = new Date();
+	var h = today.getHours();
+	var m = today.getMinutes();
+	var s = today.getSeconds(); 
+	
+	var goOutAtSpl = goOutAt.split(":");
+	var hu = goOutAtSpl[0];
+	var mu = goOutAtSpl[1];
+	
+	var t = (h * 3600) + (m * 60) + s;
+	var tu = (hu * 3600) + (mu * 60);
+	
+	var td = tu -t;
+	
+	var hd = Math.floor(td/3600);
+	var md = Math.floor((td%3600)/60);
+	var sd = td%60;
+	
+	if(hd < 0 || md < 0 || sd < 0) {
+		if(hd < 0)
+			hd = (hd * (-1))-1;
+		if(md < 0)
+			md = (md * (-1))-1;
+		if(sd < 0)
+			sd = sd * (-1);
+		if(!document.getElementById('bpCountdown').classList.contains('green')) {
+			document.getElementById('bpCountdown').classList.add('green');
+			
+			document.getElementById('bpOff').classList.remove('infoOn');
+			document.getElementById('bpOff').classList.add('infoOff');
+			document.getElementById('bpOn').classList.remove('infoOff');
+			document.getElementById('bpOn').classList.add('infoOn');
+		}
+		segno = "    ";
+	} else {
+		if(document.getElementById('bpCountdown').classList.contains('green')) {
+			document.getElementById('bpCountdown').classList.remove('green');
+		}
+		segno = "-";
+	}
+	document.getElementById('bpCountdown').value = segno + checkTime(hd) + ":" + checkTime(md) + ":" + checkTime(sd);
+}
+
+function checkTime(i) {
+	if (i < 10) {i = "0" + i};  // Add zero in front of numbers < 10
+	return i;
+}
+
+function startAudio() {
+	if(canStartAudio == true && audioEnabled == true) {
+		var audio = new Audio('./audio/message.mp3');
+		audio.play();
+	}
+}
+
+function addTime() {
+    timeId++; // Increment timeId to get a unique ID for the new element
+	var html = 	'<tr><td colspan="2" class="spacer"><hr></td></tr>' +
+				'<tr><td><img src="./images/icons/trash.png" class="icon" id="deleteTime-'+timeId+'" onclick=\'removeElementByButton("timeId-'+timeId+'", "deleteTime-'+(timeId-1)+'")\' title="Rimuovi entrata ed uscita selezionata"/> ' +
+				         'Entrata '+timeId+'</td><td id="c_ent'+timeId+'" class="colTime"><input type="time" id="ent'+timeId+'" onfocusout="calcolaOrari()"/></td></tr>' +
+				'<tr><td colspan="2" class="spacer"><hr></td></tr>' +
+				'<tr><td>Uscita '+timeId+'</td><td id="c_usc'+timeId+'" class="colTime"><input type="time" id="usc'+timeId+'" onfocusout="calcolaOrari()"/></td></tr>';
+    addElement('timeTable', 'tbody', 'timeId-' + timeId, 'deleteTime-' + (timeId-1), html);
+}
+
+function addElement(parentId, elementTag, elementId, previousElementId, html) {
+    // Adds an element to the document
+    var p = document.getElementById(parentId);
+    var newElement = document.createElement(elementTag);
+    newElement.setAttribute('id', elementId);
+    newElement.innerHTML = html;
+    p.appendChild(newElement);
+	
+	// You can delete only the last time section added
+	if(document.getElementById(previousElementId) != null) {
+		document.getElementById(previousElementId).classList.add('invisible');
+	}
+	
+	var objDiv = document.getElementById("workingTime");
+	objDiv.scrollTop = objDiv.scrollHeight;
+}
+
+function removeElementByButton(elementId, previousElementId) {
+	removeElement(elementId, previousElementId)
+	
+	document.getElementById('tulipUrl').value = "";
+	document.getElementById('tulipUrlMobile').value = "";
+}
+
+function removeElement(elementId, previousElementId) {
+    // Removes an element from the document
+    var element = document.getElementById(elementId);
+    element.parentNode.removeChild(element);
+	
+	timeId--;
+	// If possible show the previous delete button
+	if(document.getElementById(previousElementId) != null) {
+		document.getElementById(previousElementId).classList.remove('invisible');
+	}
+	
+	calcolaOrari();
+}
+
+function showInfo() {
+	document.getElementById('infoContainer').classList.remove('infoOff');
+	document.getElementById('infoContainer').classList.add('infoOn');
+	document.getElementById('timeContainer').classList.add('infoOff');
+}
+
+function closeInfo() {
+	document.getElementById('infoContainer').classList.remove('infoOn');
+	document.getElementById('infoContainer').classList.add('infoOff');
+	document.getElementById('timeContainer').classList.remove('infoOff');
+}
+
+function closeBp() {
+	document.getElementById('bpContainer').classList.remove('infoOn');
+	document.getElementById('bpContainer').classList.add('infoOff');
+}
+
+function disableAudio() {
+	document.getElementById('audioOption').classList.remove('bgGreen');
+	document.getElementById('audioOption').classList.add('bgRed');
+	document.getElementById('audioOn').classList.add('invisible');
+	document.getElementById('audioOff').classList.remove('invisible');
+	audioEnabled = false;
+}
+
+function enableAudio() {
+	document.getElementById('audioOption').classList.add('bgGreen');
+	document.getElementById('audioOption').classList.remove('bgRed');
+	document.getElementById('audioOn').classList.remove('invisible');
+	document.getElementById('audioOff').classList.add('invisible');
+	audioEnabled = true;
+}
