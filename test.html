@@ -4,7 +4,7 @@ var language;
 function getLanguage() {
 (localStorage.getItem('language') == null) ? setLanguage('en') : false;
 $.ajax({ 
-url:  '/language/' +  localStorage.getItem('language') + '.json', 
+url:  '/labels/' +  localStorage.getItem('language') + '.json', 
 dataType: 'json', async: false, dataType: 'json', 
 success: function (lang) { language = lang } });
 }
@@ -15,7 +15,7 @@ localStorage.setItem('language', lang);
 </script>
 	<body>
 		<a href="#" onclick="setLanguage('en')">English</a> 
-<a href="#" onclick="setLanguage('es')">Spanish</a>
+<a href="#" onclick="setLanguage('it')">Italiano</a>
 
 <div id="div1"></div>
 	</body>
