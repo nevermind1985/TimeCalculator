@@ -29,6 +29,10 @@ td {
 	color: white;
 }
 
+.mobileTitle {
+	font-size: 20px!important;
+}
+
 #timeContainer {
     position:fixed;
     top: 50%;
