@@ -286,6 +286,11 @@ function pulisciAll() {
 	document.getElementById('buonoPastoTimer').classList.remove('infoOn');
 	document.getElementById('buonoPastoTimer').classList.remove('infoOff');
 	document.getElementById('buonoPastoTimer').classList.add('infoOff');
+	
+	document.getElementById('bpOn').classList.remove('infoOn');
+	document.getElementById('bpOn').classList.add('infoOff');
+	document.getElementById('bpOff').classList.remove('infoOff');
+	document.getElementById('bpOff').classList.add('infoOn');
 }
 
 function clickReset() {
