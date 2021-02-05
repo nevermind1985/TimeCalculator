@@ -256,6 +256,36 @@ td {
 	}
 }
 
+#themeSelection {
+	position:absolute;
+	left: -3.5em;
+	top: 10.1em;
+	width:3em;
+	height:3em;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: 2px solid black;
+	background-color: red;
+	display:block;
+}
+
+@media only screen and (max-width: 1023px) {
+	#themeSelection {
+		display: none;
+	}
+}
+
+#themeSelector {
+	position:absolute;
+	left: -13.6em;
+	top: 10.1em;
+	width:10em;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: 2px solid black;
+	background-color: black;
+}
+
 #travelTime {
 	position:absolute;
 	left: 5px;
@@ -400,6 +430,12 @@ td {
 	margin-left: 9em;
 }
 
+@media only screen and (max-width: 1023px) {
+	.outbox {
+		margin-left: calc(100% - 120px);
+	}
+}
+
 .orario {
 	width: 6.1em !important;
 	font-family: "SevenSegment";
@@ -472,10 +508,18 @@ td {
 	border: 5px solid black;
 }
 
-@media only screen and (max-width: 1023px) {
-	.outbox {
-		margin-left: calc(100% - 120px);
-	}
+.themeSelectorTable {
+	width: 100%;
+}
+
+.themeSelectorTable tr:hover {
+	background-color: #ffffff;
+}
+
+.themeSelectorTable td:hover {
+	color: #000000 !important;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 input[type=time] {

@@ -58,10 +58,10 @@
 								<td class="center black">
 									<br/>
 									TIME CALCULATOR<br/>
-									Version 3.5 [20210202]<br/><br/>
+									Version 3.5.2 [20210205]<br/><br/>
 									<u>Changelog:</u><br/>
 									<ul class="changelog">
-										<li>Aggiunto timer buono pasto</li>
+										<li>Aggiunto temi (beta version)</li>
 										<li>Bugfix minori</li>
 									</ul>
 								</td>
@@ -101,6 +101,33 @@
 									<img src="./images/icons/audioOn.png" id="audioOn" class="icon littleMargin" onclick="disableAudio()" title="Audio acceso"/>
 									<img src="./images/icons/audioOff.png" id="audioOff" class="icon littleMargin invisible" onclick="enableAudio()" title="Audio spento"/>
 								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				<div id="themeSelection">
+					<center>
+						<table>
+							<tr>
+								<td>
+									<img src="./images/icons/themes.png" id="themes" class="icon littleMargin" onclick="showThemeSelector()" title="Cambia tema"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				<div id="themeSelector" class="infoOff">
+					<center>
+						<table class="themeSelectorTable">
+							<tr onclick="setDefaultTheme()">
+								<td>
+									STANDARD
+								</td>
+							<tr onclick="setTheme('fantozzi')">
+								<td>
+									FANTOZZI
+								</td>
+							</tr>
 							</tr>
 						</table>
 					</center>
