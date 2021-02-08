@@ -682,10 +682,16 @@ function getCookie(name) {
     return null;
 }
 
+var reloaded = false;
+
 function checkPreferencesCookie() {
 	var theme = getCookie("theme");
 	
 	if(theme != "") {
 		setTheme(theme);
+		if(!reloaded) {
+			window.location.reload();
+			reloaded = true;
+		}
 	}
 }
