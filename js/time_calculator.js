@@ -596,9 +596,17 @@ function showThemeSelector() {
 	if(document.getElementById('themeSelector').classList.contains('infoOff')) {
 		document.getElementById('themeSelector').classList.remove('infoOff');
 		document.getElementById('themeSelector').classList.add('infoOn');
+		document.getElementById('themes').classList.remove('infoOn');
+		document.getElementById('themes').classList.add('infoOff');
+		document.getElementById('themesClose').classList.remove('infoOff');
+		document.getElementById('themesClose').classList.add('infoOn');
 	} else {
 		document.getElementById('themeSelector').classList.remove('infoOn');
 		document.getElementById('themeSelector').classList.add('infoOff');
+		document.getElementById('themesClose').classList.remove('infoOn');
+		document.getElementById('themesClose').classList.add('infoOff');
+		document.getElementById('themes').classList.remove('infoOff');
+		document.getElementById('themes').classList.add('infoOn');
 	}
 }
 
@@ -636,6 +644,8 @@ function setTheme(themeName) {
 	} else {
 		document.getElementById('permissions').style.backgroundImage = "url('./images/permission.png')"
 	}
+	
+	setCookie("theme", themeName);
 }
 
 function checkIfImageExists(imagePath) {
@@ -646,3 +656,45 @@ function checkIfImageExists(imagePath) {
 	}
 	return true;
 }
+
+
+function setCookie(name, value) {
+    document.cookie = name + "=" + escape(value) + "; max-age=" + 30*24*60*60;
+}
+
+function getCookie(name) {
+    // Split cookie string and get all individual name=value pairs in an array
+    var cookieArr = document.cookie.split(";");
+    
+    // Loop through the array elements
+    for(var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+        
+        /* Removing whitespace at the beginning of the cookie name
+        and compare it with the given string */
+        if(name == cookiePair[0].trim()) {
+            // Decode the cookie value and return
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    
+    // Return null if not found
+    return null;
+}
+
+function checkCookie() {
+    // Get cookie using our custom function
+    var firstName = getCookie("firstName");
+    
+    if(firstName != "") {
+        alert("Welcome again, " + firstName);
+    } else {
+        firstName = prompt("Please enter your first name:");
+        if(firstName != "" && firstName != null) {
+            // Set cookie using our custom function
+            setCookie("firstName", firstName, 30);
+        }
+    }
+}
+
+//document.cookie = "firstName=; max-age=0";

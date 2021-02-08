@@ -518,8 +518,8 @@ td {
 
 .themeSelectorTable td:hover {
 	color: #000000 !important;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 }
 
 input[type=time] {
