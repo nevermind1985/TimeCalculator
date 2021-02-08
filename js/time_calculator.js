@@ -682,19 +682,10 @@ function getCookie(name) {
     return null;
 }
 
-function checkCookie() {
-    // Get cookie using our custom function
-    var firstName = getCookie("firstName");
-    
-    if(firstName != "") {
-        alert("Welcome again, " + firstName);
-    } else {
-        firstName = prompt("Please enter your first name:");
-        if(firstName != "" && firstName != null) {
-            // Set cookie using our custom function
-            setCookie("firstName", firstName, 30);
-        }
-    }
+function checkPreferencesCookie() {
+	var theme = getCookie("theme");
+	
+	if(theme != "") {
+		setTheme(theme);
+	}
 }
-
-//document.cookie = "firstName=; max-age=0";
