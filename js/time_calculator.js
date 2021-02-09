@@ -612,51 +612,36 @@ function showThemeSelector() {
 
 function setDefaultTheme() {
 	document.getElementById('exitPrevision').style.backgroundImage = "url('./images/finish.png')";
-	document.getElementById('permissions').style.backgroundImage = "url('./images/permission.png')"
-	document.getElementById('workingTime').style.backgroundImage = "url('./images/work.png')"
-	document.getElementById('travelTime').style.backgroundImage = "url('./images/street.png')"
-	document.getElementById('otherInfo').style.backgroundImage = "url('./images/time.png')"
+	document.getElementById('permissions').style.backgroundImage = "url('./images/permission.png')";
+	document.getElementById('workingTime').style.backgroundImage = "url('./images/work.png')";
+	document.getElementById('travelTime').style.backgroundImage = "url('./images/street.png')";
+	document.getElementById('otherInfo').style.backgroundImage = "url('./images/time.png')";
+	
+	setCookie("theme", "");
 }
 
-function setTheme(themeName) {
-	if(checkIfImageExists("./images/themes/" + themeName + "/finish.png")) {
-		document.getElementById('exitPrevision').style.backgroundImage = "url('./images/themes/" + themeName + "/finish.png')";
-	} else {
-		document.getElementById('exitPrevision').style.backgroundImage = "url('./images/finish.png')";
-	}
-	if(checkIfImageExists("./images/themes/" + themeName + "/permission.png")) {
-		document.getElementById('permissions').style.backgroundImage = "url('./images/themes/" + themeName + "/permission.png')"
-	} else {
-		document.getElementById('permissions').style.backgroundImage = "url('./images/permission.png')"
-	}
-	if(checkIfImageExists("./images/themes/" + themeName + "/work.png")) {
-		document.getElementById('workingTime').style.backgroundImage = "url('./images/themes/" + themeName + "/work.png')"
-	} else {
-		document.getElementById('permissions').style.backgroundImage = "url('./images/work.png')"
-	}	
-	if(checkIfImageExists("./images/themes/" + themeName + "/street.png")) {
-		document.getElementById('travelTime').style.backgroundImage = "url('./images/themes/" + themeName + "/street.png')"
-	} else {
-		document.getElementById('permissions').style.backgroundImage = "url('./images/street.png')"
-	}
-	if(checkIfImageExists("./images/themes/" + themeName + "/time.png")) {
-		document.getElementById('otherInfo').style.backgroundImage = "url('./images/themes/" + themeName + "/time.png')"
-	} else {
-		document.getElementById('permissions').style.backgroundImage = "url('./images/permission.png')"
-	}
+function setTheme(themeName) {	
+	checkIfImageExistsAndSet("./images/themes/" + themeName + "/finish.png", 'exitPrevision', 'finish.png');
+	checkIfImageExistsAndSet("./images/themes/" + themeName + "/permission.png", 'permissions', 'permission.png');
+	checkIfImageExistsAndSet("./images/themes/" + themeName + "/work.png", 'workingTime', 'work.png');
+	checkIfImageExistsAndSet("./images/themes/" + themeName + "/street.png", 'travelTime', 'street.png');
+	checkIfImageExistsAndSet("./images/themes/" + themeName + "/time.png", 'otherInfo', 'time.png');
 	
 	setCookie("theme", themeName);
 }
 
-function checkIfImageExists(imagePath) {
+function checkIfImageExistsAndSet(imagePath, elementId, imageName) {
 	var image = new Image();
 	image.src = imagePath;
-	if (image.width == 0) {
-		return false;
+	
+	image.onerror = function(){
+	   document.getElementById(elementId).style.backgroundImage = "url('./images/"+imageName+"')";
 	}
-	return true;
+	
+	image.onload = function(){
+	   document.getElementById(elementId).style.backgroundImage = "url('"+imagePath+"')";
+	}
 }
-
 
 function setCookie(name, value) {
     document.cookie = name + "=" + escape(value) + "; max-age=" + 30*24*60*60;
@@ -682,16 +667,11 @@ function getCookie(name) {
     return null;
 }
 
-var reloaded = false;
-
 function checkPreferencesCookie() {
 	var theme = getCookie("theme");
-	
-	if(theme != "") {
+	if(theme != "" && theme != null) {
 		setTheme(theme);
-		if(!reloaded) {
-			//window.location.reload();
-			reloaded = true;
-		}
+	} else {
+		setDefaultTheme();
 	}
 }

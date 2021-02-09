@@ -13,8 +13,8 @@
 		<title>Working Time Calculator</title>
 		<link rel="icon" href="./images/timeCalcIcon.png">
 	</head>
-	<body onload="startTime();checkPreferencesCookie()">
-		<form>
+	<body onload="startTime()">
+		<form id="timeCalculatorForm">
 			<div id="bpContainer" class="infoOff" onclick="closeBp()">
 				<div id="buonoPastoAward">
 					<center>
@@ -58,7 +58,7 @@
 								<td class="center black">
 									<br/>
 									TIME CALCULATOR<br/>
-									Version 3.5.2 [20210205]<br/><br/>
+									Version 3.5.5 [20210209]<br/><br/>
 									<u>Changelog:</u><br/>
 									<ul class="changelog">
 										<li>Aggiunto temi (beta version)</li>
@@ -124,7 +124,7 @@
 								<td>
 									DEFAULT
 								</td>
-							<tr onclick="setTheme('fantozzi')">
+							<tr onclick="setTheme('fantozzi')" id="fantozzi">
 								<td>
 									FANTOZZI
 								</td>
@@ -359,4 +359,10 @@
 			</div>
 		</form>
 	</body>
+	<script type="text/javascript">
+		window.addEventListener("load", function(){
+			//everything is fully loaded, don't use me if you can use DOMContentLoaded
+			checkPreferencesCookie();
+		});
+	</script>
 </html>
