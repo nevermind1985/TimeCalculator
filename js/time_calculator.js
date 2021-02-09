@@ -621,29 +621,43 @@ function setDefaultTheme() {
 	document.getElementById('travelTime').style.backgroundImage = "url('./images/street.png')";
 	document.getElementById('otherInfo').style.backgroundImage = "url('./images/time.png')";
 	
+	document.getElementById('bpOff').src = "./images/bpOFF.png";
+	document.getElementById('bpOn').src = "./images/bpON.png";
+	
 	setCookie("theme", "");
 }
 
 function setTheme(themeName) {	
-	checkIfImageExistsAndSet("./images/themes/" + themeName + "/finish.png", 'exitPrevision', 'finish.png');
-	checkIfImageExistsAndSet("./images/themes/" + themeName + "/permission.png", 'permissions', 'permission.png');
-	checkIfImageExistsAndSet("./images/themes/" + themeName + "/work.png", 'workingTime', 'work.png');
-	checkIfImageExistsAndSet("./images/themes/" + themeName + "/street.png", 'travelTime', 'street.png');
-	checkIfImageExistsAndSet("./images/themes/" + themeName + "/time.png", 'otherInfo', 'time.png');
+	checkIfImageExistsAndSet("./images/themes/" + themeName + "/finish.png", 'exitPrevision', 'finish.png', false);
+	checkIfImageExistsAndSet("./images/themes/" + themeName + "/permission.png", 'permissions', 'permission.png', false);
+	checkIfImageExistsAndSet("./images/themes/" + themeName + "/work.png", 'workingTime', 'work.png', false);
+	checkIfImageExistsAndSet("./images/themes/" + themeName + "/street.png", 'travelTime', 'street.png', false);
+	checkIfImageExistsAndSet("./images/themes/" + themeName + "/time.png", 'otherInfo', 'time.png', false);
+	
+	checkIfImageExistsAndSet("./images/themes/" + themeName + "/bpOFF.png", 'bpOff', 'bpOFF.png', true);
+	checkIfImageExistsAndSet("./images/themes/" + themeName + "/bpON.png", 'bpOn', 'bpON.png', true);
 	
 	setCookie("theme", themeName);
 }
 
-function checkIfImageExistsAndSet(imagePath, elementId, imageName) {
+function checkIfImageExistsAndSet(imagePath, elementId, imageName, isImage) {
 	var image = new Image();
 	image.src = imagePath;
 	
 	image.onerror = function(){
-	   document.getElementById(elementId).style.backgroundImage = "url('./images/"+imageName+"')";
+		if(isImage) {
+			document.getElementById(elementId).src = "./images/"+imageName;
+		} else {
+			document.getElementById(elementId).style.backgroundImage = "url('./images/"+imageName+"')";
+		}
 	}
 	
 	image.onload = function(){
-	   document.getElementById(elementId).style.backgroundImage = "url('"+imagePath+"')";
+		if(isImage) {
+			document.getElementById(elementId).src = imagePath;
+		} else {
+			document.getElementById(elementId).style.backgroundImage = "url('"+imagePath+"')";
+		}
 	}
 }
 
