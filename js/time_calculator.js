@@ -624,6 +624,11 @@ function setDefaultTheme() {
 	document.getElementById('bpOff').src = "./images/bpOFF.png";
 	document.getElementById('bpOn').src = "./images/bpON.png";
 	
+	document.getElementById('timeTable').className = "timeTable";
+	document.getElementById('travelTimeTable').className = "timeTable";
+	document.getElementById('otherInfoTable').className = "timeTable";
+	document.getElementById('exitPrevision').className = "timeTable";
+	
 	setCookie("theme", "");
 }
 
@@ -637,8 +642,18 @@ function setTheme(themeName) {
 	checkIfImageExistsAndSet("./images/themes/" + themeName + "/bpOFF.png", 'bpOff', 'bpOFF.png', true);
 	checkIfImageExistsAndSet("./images/themes/" + themeName + "/bpON.png", 'bpOn', 'bpON.png', true);
 	
+	setCustomCssClass("timeTable", themeName, "timeTable");
+	setCustomCssClass("travelTimeTable", themeName, "timeTable");
+	setCustomCssClass("otherInfoTable", themeName, "timeTable");
+	setCustomCssClass("exitPrevision", themeName, "");
+	
 	setCookie("theme", themeName);
 }
+
+function setCustomCssClass(elementId, themeClass, defaultClass) {
+	document.getElementById(elementId).className = defaultClass;
+	document.getElementById(elementId).classList.add(themeClass);
+}	
 
 function checkIfImageExistsAndSet(imagePath, elementId, imageName, isImage) {
 	var image = new Image();

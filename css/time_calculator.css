@@ -29,6 +29,10 @@ td {
 	color: white;
 }
 
+.fantozzi td, .fantozzi h2 {
+	color: orangered;
+}
+
 .mobileTitle {
 	font-size: 20px!important;
 }
