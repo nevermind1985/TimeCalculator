@@ -582,6 +582,8 @@ function disableAudio() {
 	document.getElementById('audioOn').classList.add('invisible');
 	document.getElementById('audioOff').classList.remove('invisible');
 	audioEnabled = false;
+	
+	setCookie("audio", "OFF");
 }
 
 function enableAudio() {
@@ -590,6 +592,8 @@ function enableAudio() {
 	document.getElementById('audioOn').classList.remove('invisible');
 	document.getElementById('audioOff').classList.add('invisible');
 	audioEnabled = true;
+	
+	setCookie("audio", "");
 }
 
 function showThemeSelector() {
@@ -673,5 +677,10 @@ function checkPreferencesCookie() {
 		setTheme(theme);
 	} else {
 		setDefaultTheme();
+	}
+	
+	var audio = getCookie("audio");
+	if(audio != "" && audio != null && audio == "OFF") {
+		disableAudio();
 	}
 }
