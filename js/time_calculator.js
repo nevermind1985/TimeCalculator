@@ -690,7 +690,7 @@ function checkPreferencesCookie() {
 	if(theme != "") {
 		setTheme(theme);
 		if(!reloaded) {
-			window.location.reload();
+			//window.location.reload();
 			reloaded = true;
 		}
 	}
