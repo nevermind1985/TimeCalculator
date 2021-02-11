@@ -604,6 +604,7 @@ function showThemeSelector() {
 		document.getElementById('themes').classList.add('infoOff');
 		document.getElementById('themesClose').classList.remove('infoOff');
 		document.getElementById('themesClose').classList.add('infoOn');
+		autoHideThemeSelector();
 	} else {
 		document.getElementById('themeSelector').classList.remove('infoOn');
 		document.getElementById('themeSelector').classList.add('infoOff');
@@ -612,6 +613,15 @@ function showThemeSelector() {
 		document.getElementById('themes').classList.remove('infoOff');
 		document.getElementById('themes').classList.add('infoOn');
 	}
+}
+
+function autoHideThemeSelector() {
+	//DOPO 15 SECONDI CHIUDO AUTOMATICAMENTE IL THEME SELECTOR
+	setTimeout(function(){
+		if(document.getElementById('themeSelector').classList.contains('infoOn')) {
+			showThemeSelector();
+		} 
+	},15000);
 }
 
 function setDefaultTheme() {

@@ -29,8 +29,14 @@ td {
 	color: white;
 }
 
-.fantozzi td, .fantozzi h2 {
-	color: orangered;
+.fantozzi td {
+	color: orangered!important;
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: black;
+}
+
+.fantozzi h2 {
+	color: orangered!important;
 }
 
 .mobileTitle {
