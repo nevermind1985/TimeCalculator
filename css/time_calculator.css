@@ -29,14 +29,21 @@ td {
 	color: white;
 }
 
-.fantozzi td {
+h2 {
+	font-family: 'Squada One', cursive;
+	font-size: 1.75em;
+}
+
+.fantozzi td, .fantozzi h2 {
 	color: orangered!important;
 	-webkit-text-stroke-width: 1px;
 	-webkit-text-stroke-color: black;
 }
 
-.fantozzi h2 {
-	color: orangered!important;
+.flintstones td, .flintstones h2 {
+	color: darkorange!important;
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: black;
 }
 
 .mobileTitle {
