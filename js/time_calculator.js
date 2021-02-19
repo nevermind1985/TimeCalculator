@@ -507,7 +507,21 @@ function checkTime(i) {
 function startAudio() {
 	if(canStartAudio == true && audioEnabled == true) {
 		var audio = new Audio('./audio/message.mp3');
-		audio.play();
+		
+		var theme = getCookie("theme");
+		if(theme != "" && theme != null) {
+			var testThemeAudio = new Audio("./audio/themes/"+theme+"/message.mp3");
+			testThemeAudio.onerror = function() {
+				audio = new Audio('./audio/message.mp3');
+				audio.play();
+			};
+			testThemeAudio.onloadeddata = function() {
+				audio = new Audio("./audio/themes/"+theme+"/message.mp3");
+				audio.play();
+			};
+		} else {
+			audio.play();
+		}
 	}
 }
 

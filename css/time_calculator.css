@@ -544,6 +544,7 @@ input[type=time] {
   color: #000000;
   font-size: 18px;
   width: 160px;
+  -webkit-text-stroke-width: 0px;
 }
 
 input[type=text] {
@@ -551,6 +552,7 @@ input[type=text] {
   background-color: #000000;
   font-size: 40px;
   width: 2.7em;
+  -webkit-text-stroke-width: 0px;
 }
 
 input[type=text]:focus{
