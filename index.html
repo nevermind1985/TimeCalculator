@@ -45,7 +45,7 @@
 						</table>
 					</center>
 				</div>
-				<div id="manufacturerInfo">
+				<div>
 					<center>
 						<table>
 							<tr>
@@ -58,13 +58,49 @@
 								<td class="center black">
 									<br/>
 									TIME CALCULATOR<br/>
-									Version 3.5.55 [20210219]<br/><br/>
+									Version 3.6.00 [20210302]<br/><br/>
 									<u>Changelog:</u><br/>
 									<ul class="changelog">
-										<li>Aggiunta gestione audio per tema</li>
-										<li>Aggiunto tema Flintstones (beta version)</li>
+										<li>Aggiunta gestione settings (beta version)</li>
 										<li>Bugfix minori</li>
 									</ul>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+			</div>
+			<div id="settingsContainer" class="infoOff">
+				<div id="closeInfo">
+					<center>
+						<table>
+							<tr>
+								<td>
+									<img src="./images/icons/close.png" class="icon littleMargin" onclick="closeSettings()"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				<div>
+					<center>
+						<table>
+							<tr>
+								<td>ORE DI LAVORO</td>
+								<td>
+									<input type="time" id="customWorkingHours"/>
+								</td>
+							</tr>
+							<tr>
+								<td>ORE PER BUONO PASTO</td>
+								<td>
+									<input type="time" id="customBPHours"/>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<input type="button" value="salva" onclick="saveSettingsOnCache()" />
 								</td>
 							</tr>
 						</table>
@@ -113,6 +149,17 @@
 								<td>
 									<img src="./images/icons/themes.png" id="themes" class="icon littleMargin" onclick="showThemeSelector()" title="Cambia tema"/>
 									<img src="./images/icons/close.png" id="themesClose" class="icon littleMargin infoOff" onclick="showThemeSelector()"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				<div id="settingsSelection">
+					<center>
+						<table>
+							<tr>
+								<td>
+									<img src="./images/icons/settings.png" id="settings" class="icon littleMargin" onclick="showSettings()" title="Opzioni"/>
 								</td>
 							</tr>
 						</table>

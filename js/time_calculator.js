@@ -4,6 +4,12 @@ var timeId = 2; //the standard number of elements in page
 var canStartAudio = false;
 var audioEnabled = true;
 
+var defaultWorkingHours = "08:00";
+var workingHours;
+
+var defaultBPHours = "06:00";
+var bpHours;
+
 function calcolaOrari() {
 	canStartAudio = false;
 	//PERMESSI
@@ -52,8 +58,8 @@ function calcolaOrari() {
 		}
 	}
 	
-	var r1 = calcolaDiff(workedTime, "08:00");
-	var rbp = calcolaDiff(workedTime, "06:00");
+	var r1 = calcolaDiff(workedTime, workingHours);
+	var rbp = calcolaDiff(workedTime, bpHours);
 	if(d_oPER != "") {
 		r1 = calcolaDiff(d_oPER, r1);
 	}
@@ -92,7 +98,7 @@ function calcolaOrari() {
 			//AGGIUNGO EVENTUALI PERMESSI
 			ol = calcolaSum(d_oLAV, d_oPER);
 		}
-		ol = calcolaDiff(ol,"08:00");
+		ol = calcolaDiff(ol,workingHours);
 		if(ol == "00:00") {
 			//SONO TUTTE ORE EXTRA LAVORO
 			document.getElementById('ovEX').value = ov_TOT;
@@ -121,8 +127,8 @@ function calcolaOrari() {
 		st = calcolaSum(d_oLAV, d_oPER);
 	}
 	
-	if(calcolaDiff("08:00",st)!="00:00") {
-		document.getElementById('oSTR').value = calcolaDiff("08:00",st);
+	if(calcolaDiff(workingHours,st)!="00:00") {
+		document.getElementById('oSTR').value = calcolaDiff(workingHours,st);
 	} else {
 		document.getElementById('oSTR').value = "";
 	}
@@ -148,6 +154,14 @@ function calcolaBuonoPastoAlert() {
 		if(oLav != "") {
 			var oLavSplit = oLav.split(":");
 			oreLavorate = parseInt(oLavSplit[0]);
+		}
+		
+		if(!hasBpCountDown) {
+			hasBpCountDown = true;
+			if(document.getElementById('buonoPastoTimer').classList.contains('infoOff')) {
+				document.getElementById('buonoPastoTimer').classList.remove('infoOff');
+				document.getElementById('buonoPastoTimer').classList.add('infoOn');
+			}
 		}
 		
 		if(oreLavorate >= 6) {
@@ -585,6 +599,35 @@ function closeInfo() {
 	document.getElementById('timeContainer').classList.remove('infoOff');
 }
 
+function showSettings() {
+	document.getElementById('settingsContainer').classList.remove('infoOff');
+	document.getElementById('settingsContainer').classList.add('infoOn');
+	document.getElementById('timeContainer').classList.add('infoOff');
+	
+
+	document.getElementById('customWorkingHours').value = workingHours;
+	document.getElementById('customBPHours').value = bpHours;
+}
+
+function saveSettingsOnCache() {
+	var customWH = document.getElementById('customWorkingHours').value;
+	var customBPH = document.getElementById('customBPHours').value;
+	
+	workingHours = customWH;
+	bpHours = customBPH;
+	
+	setCookie("customWorkingHours", customWH);
+	setCookie("customBPHours", customBPH);
+	
+	calcolaOrari();
+}
+
+function closeSettings() {
+	document.getElementById('settingsContainer').classList.remove('infoOn');
+	document.getElementById('settingsContainer').classList.add('infoOff');
+	document.getElementById('timeContainer').classList.remove('infoOff');
+}
+
 function closeBp() {
 	document.getElementById('bpContainer').classList.remove('infoOn');
 	document.getElementById('bpContainer').classList.add('infoOff');
@@ -736,4 +779,20 @@ function checkPreferencesCookie() {
 	if(audio != "" && audio != null && audio == "OFF") {
 		disableAudio();
 	}
+	
+	var cookieWorkingHours = getCookie("workingHours");
+	if(cookieWorkingHours != "" && cookieWorkingHours != null) {
+		workingHours = cookieWorkingHours;
+	} else {
+		workingHours = defaultWorkingHours;
+	}
+	document.getElementById('customWorkingHours').value = workingHours;
+	
+	var cookieBPHours = getCookie("bpHours");
+	if(cookieBPHours != "" && cookieBPHours != null) {
+		bpHours = cookieBPHours;
+	} else {
+		bpHours = defaultBPHours;
+	}
+	document.getElementById('customBPHours').value = bpHours;
 }
