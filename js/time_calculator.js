@@ -600,11 +600,15 @@ function closeInfo() {
 }
 
 function showSettings() {
+	if(document.getElementById('saveOk').classList.contains('infoOn')) {;
+		document.getElementById('saveOk').classList.remove('infoOn');
+	document.getElementById('saveOk').classList.add('infoOff');
+	}
+	
 	document.getElementById('settingsContainer').classList.remove('infoOff');
 	document.getElementById('settingsContainer').classList.add('infoOn');
 	document.getElementById('timeContainer').classList.add('infoOff');
 	
-
 	document.getElementById('customWorkingHours').value = workingHours;
 	document.getElementById('customBPHours').value = bpHours;
 }
@@ -618,6 +622,9 @@ function saveSettingsOnCache() {
 	
 	setCookie("customWorkingHours", customWH);
 	setCookie("customBPHours", customBPH);
+	
+	document.getElementById('saveOk').classList.remove('infoOff');
+	document.getElementById('saveOk').classList.add('infoOn');
 	
 	calcolaOrari();
 }

@@ -1,0 +1,48 @@
+<div id="closeInfo">
+	<center>
+		<table>
+			<tr>
+				<td>
+					<img src="./images/icons/close.png" class="icon littleMargin" onclick="closeSettings()"/>
+				</td>
+			</tr>
+		</table>
+	</center>
+</div>
+<div>
+	<center>
+		<table>
+			<tr>
+				<td>
+					<br/><br/><br/>
+				</td>
+			</tr>
+			<tr>
+				<td class="black">
+					ORE DI LAVORO
+				</td>
+				<td>
+					<input type="time" id="customWorkingHours"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="black">
+					ORE PER BUONO PASTO
+				</td>
+				<td>
+					<input type="time" id="customBPHours"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="center">
+					<input type="button" value="Salva" onclick="saveSettingsOnCache()" class="tulipButton"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="center">
+					<span id="saveOk" class="infoOff blue">Salvataggio effettuato correttamenre</span>
+				</td>
+			</tr>
+		</table>
+	</center>
+</div>

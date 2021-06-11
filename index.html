@@ -12,6 +12,37 @@
 		<script type="text/javascript" src="./js/time_calculator.js"></script>
 		<title>Working Time Calculator</title>
 		<link rel="icon" href="./images/timeCalcIcon.png">
+		
+		<script>
+			function includeHTML() {
+			  var z, i, elmnt, file, xhttp;
+			  /* Loop through a collection of all HTML elements: */
+			  z = document.getElementsByTagName("*");
+			  for (i = 0; i < z.length; i++) {
+				elmnt = z[i];
+				/*search for elements with a certain atrribute:*/
+				file = elmnt.getAttribute("w3-include-html");
+				if (file) {
+				  /* Make an HTTP request using the attribute value as the file name: */
+				  xhttp = new XMLHttpRequest();
+				  xhttp.onreadystatechange = function() {
+					if (this.readyState == 4) {
+					  if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+					  if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+					  /* Remove the attribute, and call this function once more: */
+					  elmnt.removeAttribute("w3-include-html");
+					  includeHTML();
+					}
+				  }
+				  xhttp.open("GET", file, true);
+				  xhttp.send();
+				  /* Exit the function: */
+				  return;
+				}
+			  }
+			}
+			</script>
+		
 	</head>
 	<body onload="startTime();checkPreferencesCookie();">
 		<form id="timeCalculatorForm">
@@ -49,7 +80,7 @@
 					<center>
 						<table>
 							<tr>
-								<td>
+								<td class="center">
 									<br/><br/>
 									<img src="./images/companyLogo.png" />
 								</td>
@@ -70,7 +101,8 @@
 					</center>
 				</div>
 			</div>
-			<div id="settingsContainer" class="infoOff">
+			<div id="settingsContainer" w3-include-html="./pages/settings.html"></div>
+			<div id="settingsContainer_old" class="infoOff">
 				<div id="closeInfo">
 					<center>
 						<table>
@@ -86,21 +118,34 @@
 					<center>
 						<table>
 							<tr>
-								<td>ORE DI LAVORO</td>
+								<td>
+									<br/><br/><br/>
+								</td>
+							</tr>
+							<tr>
+								<td class="black">
+									ORE DI LAVORO
+								</td>
 								<td>
 									<input type="time" id="customWorkingHours"/>
 								</td>
 							</tr>
 							<tr>
-								<td>ORE PER BUONO PASTO</td>
+								<td class="black">
+									ORE PER BUONO PASTO
+								</td>
 								<td>
 									<input type="time" id="customBPHours"/>
 								</td>
 							</tr>
 							<tr>
-								<td></td>
-								<td>
-									<input type="button" value="salva" onclick="saveSettingsOnCache()" />
+								<td colspan="2" class="center">
+									<input type="button" value="Salva" onclick="saveSettingsOnCache()" class="tulipButton"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="center">
+									<span id="saveOk" class="infoOff blue">Salvataggio effettuato correttamenre</span>
 								</td>
 							</tr>
 						</table>
@@ -411,5 +456,8 @@
 				</div>
 			</div>
 		</form>
+		<script>
+			includeHTML();
+		</script>
 	</body>
 </html>

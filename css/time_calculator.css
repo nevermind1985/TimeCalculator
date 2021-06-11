@@ -458,6 +458,10 @@ h2 {
 	color: black;
 }
 
+.blue {
+	color: blue;
+}
+
 .spacer {
 	font-size:1px;
 }
@@ -583,6 +587,17 @@ input[type = reset] {
 	border-radius: 10px;
 	height: 45px;
 	width: 160px;
+	text-transform: uppercase;
+	background-color: black;
+    color: white;
+    border-color: white;
+	font-weight: bold;
+}
+
+input[type = button] {
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	height: 45px;
 	text-transform: uppercase;
 	background-color: black;
     color: white;
