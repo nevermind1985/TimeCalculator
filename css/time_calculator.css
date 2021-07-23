@@ -515,6 +515,10 @@ h2 {
 	display: none;
 }
 
+.invisibleImportant {
+	display: none!important;
+}
+
 .center {
 	text-align: center;
 }

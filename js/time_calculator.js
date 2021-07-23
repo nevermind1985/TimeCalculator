@@ -787,7 +787,7 @@ function checkPreferencesCookie() {
 		disableAudio();
 	}
 	
-	var cookieWorkingHours = getCookie("workingHours");
+	var cookieWorkingHours = getCookie("customWorkingHours");
 	if(cookieWorkingHours != "" && cookieWorkingHours != null) {
 		workingHours = cookieWorkingHours;
 	} else {
@@ -795,7 +795,7 @@ function checkPreferencesCookie() {
 	}
 	document.getElementById('customWorkingHours').value = workingHours;
 	
-	var cookieBPHours = getCookie("bpHours");
+	var cookieBPHours = getCookie("customBPHours");
 	if(cookieBPHours != "" && cookieBPHours != null) {
 		bpHours = cookieBPHours;
 	} else {
