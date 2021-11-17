@@ -20,6 +20,7 @@
 
 body {
   background-image: url("../images/bg.jpeg");
+  background-size: cover;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -46,6 +47,12 @@ h2 {
 	-webkit-text-stroke-color: black;
 }
 
+.christmas td, .christmas h2 {
+	color: white!important;
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: black;
+}
+
 .mobileTitle {
 	font-size: 20px!important;
 }
@@ -62,6 +69,11 @@ h2 {
 	-moz-border-radius: 15px;
 	border-radius: 15px;
     background-color: #d3d4e8;
+}
+
+#timeContainer.christmas {
+	border: 1px solid #3d5847;
+	background-color: #3d5847;
 }
 
 @media only screen and (max-width: 1023px) {

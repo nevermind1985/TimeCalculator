@@ -689,6 +689,8 @@ function autoHideThemeSelector() {
 }
 
 function setDefaultTheme() {
+	document.body.style.backgroundImage = "url('./images/bg.jpeg')";
+	
 	document.getElementById('exitPrevision').style.backgroundImage = "url('./images/finish.png')";
 	document.getElementById('permissions').style.backgroundImage = "url('./images/permission.png')";
 	document.getElementById('workingTime').style.backgroundImage = "url('./images/work.png')";
@@ -702,11 +704,48 @@ function setDefaultTheme() {
 	document.getElementById('travelTimeTable').className = "timeTable";
 	document.getElementById('otherInfoTable').className = "timeTable";
 	document.getElementById('exitPrevision').className = "timeTable";
+	document.getElementById('timeContainer').className = "";
+	document.getElementById('pageBody').className = "";
 	
 	setCookie("theme", "");
 }
 
-function setTheme(themeName) {	
+function changeBackgroundImage(themeName) {
+	//IMPOSTO SEMPRE L'IMMAGINE DI DEFAULT INIZIALMENTE
+	document.body.style.backgroundImage = "url('./images/bg.jpeg')";
+	
+	var image = new Image();
+	image.src = "./images/themes/" + themeName + "/bg.jpeg";
+	image.onload = function() {
+		document.body.style.backgroundImage = "url('./images/themes/" + themeName + "/bg.jpeg')"
+        return;
+    }
+	image.onerror = function(){
+		image.src = "./images/themes/" + themeName + "/bg.jpg";
+		image.onload = function() {
+			document.body.style.backgroundImage = "url('./images/themes/" + themeName + "/bg.jpg')"
+			return;
+		}
+		image.onerror = function(){
+			image.src = "./images/themes/" + themeName + "/bg.png";
+			image.onload = function() {
+				document.body.style.backgroundImage = "url('./images/themes/" + themeName + "/bg.png')"
+				return;
+			}
+			image.onerror = function(){
+				image.src = "./images/themes/" + themeName + "/bg.gif";
+				image.onload = function() {
+					document.body.style.backgroundImage = "url('./images/themes/" + themeName + "/bg.gif')"
+					return;
+				}
+			}
+		}
+	}
+}
+
+function setTheme(themeName) {
+	changeBackgroundImage(themeName);
+	
 	checkIfImageExistsAndSet("./images/themes/" + themeName + "/finish.png", 'exitPrevision', 'finish.png', false);
 	checkIfImageExistsAndSet("./images/themes/" + themeName + "/permission.png", 'permissions', 'permission.png', false);
 	checkIfImageExistsAndSet("./images/themes/" + themeName + "/work.png", 'workingTime', 'work.png', false);
@@ -720,6 +759,9 @@ function setTheme(themeName) {
 	setCustomCssClass("travelTimeTable", themeName, "timeTable");
 	setCustomCssClass("otherInfoTable", themeName, "timeTable");
 	setCustomCssClass("exitPrevision", themeName, "");
+	
+	setCustomCssClass("timeContainer", themeName, "");
+	setCustomCssClass("pageBody", themeName, "");
 	
 	setCookie("theme", themeName);
 }

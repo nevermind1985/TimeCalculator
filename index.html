@@ -30,7 +30,7 @@
 			})(window.navigator.userAgent.toLowerCase());
 		</script>
 	</head>
-	<body onload="startTime();checkPreferencesCookie();">
+	<body onload="startTime();checkPreferencesCookie();" id="pageBody">
 		<form id="timeCalculatorForm">
 			<div id="bpContainer" class="infoOff" onclick="closeBp()">
 				<div id="buonoPastoAward">
@@ -210,6 +210,11 @@
 							<tr onclick="setTheme('flintstones')" id="flintstones">
 								<td>
 									FLINTSTONES
+								</td>
+							</tr>
+							<tr onclick="setTheme('christmas')" id="christmas">
+								<td>
+									NATALE
 								</td>
 							</tr>
 							</tr>
