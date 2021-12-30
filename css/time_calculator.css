@@ -72,8 +72,10 @@ h2 {
 }
 
 #timeContainer.christmas {
-	border: 1px solid #3d5847;
-	background-color: #3d5847;
+	/*border: 1px solid #3d5847;
+	background-color: #3d5847;*/
+	border: 1px solid black;
+	background-color: black;
 }
 
 @media only screen and (max-width: 1023px) {
