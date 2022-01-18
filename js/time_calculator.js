@@ -846,7 +846,7 @@ function checkPreferencesCookie() {
 	document.getElementById('customBPHours').value = bpHours;
 }
 
-function checkIfThemesAreAvailable(name) {
+function checkIfThemesAreAvailable() {
 	var TODAY = new Date();
 	let year = TODAY.getFullYear();
 	
