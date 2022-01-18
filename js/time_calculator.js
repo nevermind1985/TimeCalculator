@@ -845,3 +845,22 @@ function checkPreferencesCookie() {
 	}
 	document.getElementById('customBPHours').value = bpHours;
 }
+
+function checkIfThemesAreAvailable(name) {
+	var TODAY = new Date();
+	let year = TODAY.getFullYear();
+	
+	var THEME_SCHEDULE = {
+		'christmas': ['December 8 ' + year, 'January 7 ' + (year+1)]
+	};
+	
+	for (var camp_ in THEME_SCHEDULE) {
+		if (TODAY < Date.parse(THEME_SCHEDULE[camp_][0]) || TODAY > Date.parse(THEME_SCHEDULE[camp_][1])) {
+			document.getElementById(camp_).style.display = 'none';
+			var theme = getCookie("theme");
+			if(theme != "" && theme != null && theme == camp_) {
+				setDefaultTheme();
+			}
+		}
+	}
+}
