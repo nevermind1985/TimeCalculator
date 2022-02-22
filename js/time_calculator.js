@@ -851,7 +851,9 @@ function checkIfThemesAreAvailable() {
 	let year = TODAY.getFullYear();
 	
 	var THEME_SCHEDULE = {
-		'christmas': ['December 8 ' + year, 'January 7 ' + (year+1)]
+		'christmas': ['December 8 ' + year, 'January 7 ' + (year+1)],
+		/*'carnival': ['January 15 ' + year, 'March 2 ' + (year+1)],
+		'easter': ['March 3 ' + year, 'April 18 ' + (year+1)],*/
 	};
 	
 	for (var camp_ in THEME_SCHEDULE) {

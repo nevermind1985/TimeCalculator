@@ -1,0 +1,34 @@
+#newsContainer {
+	display: none;
+}
+
+ .newsAnimation {
+	left:14em;
+	top:26em;
+	width: 13em;
+	height: 3em;
+	background: red;
+	position: absolute;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	animation-duration: 3s;
+	border: 5px solid white;
+}
+	
+.newsAnimation:before {
+	content: "";
+	position: absolute;
+	left: 100%;
+	top: 1em;
+	width: 0;
+	height: 0;
+	border-top: 0.5em solid transparent;
+	border-left: 26px solid red;
+	border-bottom: 0.5em solid transparent;
+}
+
+@keyframes newsAnimation {
+  0%   {top:0px;}
+  100% {top:26em;}
+}

@@ -9,7 +9,9 @@
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Expires" content="0" />
 		<link rel="stylesheet" type="text/css" href="./css/time_calculator.css">
+		<link rel="stylesheet" type="text/css" href="./css/time_calculator_news.css">
 		<script type="text/javascript" src="./js/time_calculator.js"></script>
+		<script type="text/javascript" src="./js/time_calculator_news.js"></script>
 		<title>Working Time Calculator</title>
 		<link rel="icon" href="./images/timeCalcIcon.png">
 		
@@ -30,8 +32,14 @@
 			})(window.navigator.userAgent.toLowerCase());
 		</script>
 	</head>
-	<body onload="startTime();checkPreferencesCookie();checkIfThemesAreAvailable();" id="pageBody">
+	<body onload="startTime();checkPreferencesCookie();checkIfThemesAreAvailable();checkForNews();" id="pageBody">
 		<form id="timeCalculatorForm">
+			<div id="newsContainer" class="newsContainer">
+				<p style="padding-left:1em;font-weight:bolder;">
+					Nuovo tema disponibile
+				</p>
+			</div>
+		
 			<div id="bpContainer" class="infoOff" onclick="closeBp()">
 				<div id="buonoPastoAward">
 					<center>
@@ -75,10 +83,9 @@
 								<td class="center black">
 									<br/>
 									TIME CALCULATOR<br/>
-									Version 3.8.00 [20220118]<br/><br/>
+									Version 3.8.50 [20220222]<br/><br/>
 									<u>Changelog:</u><br/>
 									<ul class="changelog">
-										<li>Gestione dinamica temi</li>
 										<li>Bugfix minori</li>
 									</ul>
 								</td>
@@ -215,6 +222,16 @@
 							<tr onclick="setTheme('christmas')" id="christmas">
 								<td>
 									NATALE
+								</td>
+							</tr>
+							<tr onclick="setTheme('carnival')" id="carnival" style="display:none;">
+								<td>
+									CARNEVALE
+								</td>
+							</tr>
+							<tr onclick="setTheme('easter')" id="easter" style="display:none;">
+								<td>
+									PASQUA
 								</td>
 							</tr>
 							</tr>
