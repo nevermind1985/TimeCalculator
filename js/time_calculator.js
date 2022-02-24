@@ -305,6 +305,8 @@ function pulisciAll() {
 	document.getElementById('bpOn').classList.add('infoOff');
 	document.getElementById('bpOff').classList.remove('infoOff');
 	document.getElementById('bpOff').classList.add('infoOn');
+	
+	document.getElementById('confettiContainer').style.display='none';
 }
 
 function clickReset() {
@@ -537,6 +539,9 @@ function startAudio() {
 			audio.play();
 		}
 	}
+	document.getElementById('confettiContainer').style.display='block';
+	initConfetti();
+	render();
 }
 
 function addTime() {

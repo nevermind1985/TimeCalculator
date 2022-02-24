@@ -71,6 +71,22 @@ h2 {
     background-color: #d3d4e8;
 }
 
+#confettiContainer {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    width:56em;
+    height:36em;
+    margin-top: -18em; /*set to a negative number 1/2 of your height*/
+    margin-left: -28em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+    background-color: transparent;
+	pointer-events:none;
+	display:none;
+}
+
 #timeContainer.christmas {
 	/*border: 1px solid #3d5847;
 	background-color: #3d5847;*/
@@ -678,4 +694,15 @@ input[type=time]::-webkit-inner-spin-button {
 
 ::-webkit-scrollbar {
   width: 1px;
+}
+
+.confetti{
+    width:56em;
+    height:36em;
+    margin-top: -18em; /*set to a negative number 1/2 of your height*/
+    margin-left: -28em; /*set to a negative number 1/2 of your width*/
+	display: block;
+	margin: 0 auto;
+	border: none;
+	user-select: none;
 }
