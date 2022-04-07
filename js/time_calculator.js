@@ -871,3 +871,16 @@ function checkIfThemesAreAvailable() {
 		}
 	}
 }
+
+function checkMarks() {
+	const queryString = window.location.search;
+	var timbrature = queryString.substring(1);
+	
+	var check = timbrature.charAt(0);
+	
+	if(check.indexOf('E') >= 0) {
+		var timbratureClean = timbrature.replace(/%20/g, " ");
+		document.getElementById('tulipUrl').value = timbratureClean;
+		caricaDaTulip();
+	}
+}
