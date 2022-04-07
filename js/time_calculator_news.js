@@ -4,7 +4,7 @@
 
 -test newsAnimation
 */
-var newsCookieValue = "";
+var newsCookieValue = "BrowserExtension";
 
 function checkForNews() {
 	if(newsCookieValue != "") {
