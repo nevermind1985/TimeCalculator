@@ -19,4 +19,5 @@ function checkForNews() {
 
 function disableNews() {
 	setCookie("news", newsCookieValue);
+	document.getElementById('newsContainer').style.display = 'none';
 }
