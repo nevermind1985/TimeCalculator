@@ -34,14 +34,8 @@
 	</head>
 	<body onload="startTime();checkPreferencesCookie();checkIfThemesAreAvailable();checkForNews();checkMarks()" id="pageBody">
 		<form id="timeCalculatorForm">
-			<div id="newsContainer" class="newsContainer">
-				<img src="./images/icons/close.png" class="icon" style="margin-top:1rem;margin-left:1rem;" onclick="disableNews()">
-				<p style="padding-left:1em;font-weight:bolder;width:90%;">
-					E' arrivato il plugin ufficiale per Chrome ed Edge!!!
-					<br/>
-					Se hai installato la versione beta puoi pure rimuoverla ed installare la versione ufficiale cliccando <a href="https://chrome.google.com/webstore/detail/estensione-timecalculator/cpjmgfnppkpojnnaodaiealfggpkcmoj/related?hl=it&authuser=0" style="color:white;">QUI</a>
-					<br/><br/>
-				</p>
+			<div id="newsContainer" class="newsContainer_XXX">
+				<img src="./images/icons/close.png" class="icon" style="margin-top:1rem;margin-left:1rem;display:none;" onclick="disableNews()">
 			</div>
 		
 			<div id="bpContainer" class="infoOff" onclick="closeBp()">
@@ -87,10 +81,12 @@
 								<td class="center black">
 									<br/>
 									TIME CALCULATOR<br/>
-									Version 4.0.00 [20220419]<br/><br/>
+									Version 4.5.00 [20221222]<br/><br/>
 									<u>Changelog:</u><br/>
 									<ul class="changelog">
-										<li>Browser Extension</li>
+										<li>Tema Ramones</li>
+										<li>Sezione download</li>
+										<li>Bugfix</li>
 									</ul>
 								</td>
 							</tr>
@@ -206,6 +202,18 @@
 						</table>
 					</center>
 				</div>
+				<div id="downloadSelection">
+					<center>
+						<table>
+							<tr>
+								<td>
+									<img src="./images/icons/download.png" id="download" class="icon littleMargin" onclick="showDownload()" title="Download"/>
+									<img src="./images/icons/close.png" id="downloadClose" class="icon littleMargin infoOff" onclick="showDownload()"/>
+								</td>
+							</tr>
+						</table>
+					</center>
+				</div>
 				<div id="themeSelector" class="infoOff">
 					<center>
 						<table class="themeSelectorTable">
@@ -213,6 +221,7 @@
 								<td>
 									DEFAULT
 								</td>
+							</tr>
 							<tr onclick="setTheme('fantozzi')" id="fantozzi">
 								<td>
 									FANTOZZI
@@ -220,7 +229,12 @@
 							</tr>
 							<tr onclick="setTheme('flintstones')" id="flintstones">
 								<td>
-									FLINTSTONES
+									FLINSTONES
+								</td>
+							</tr>
+							<tr onclick="setTheme('ramones')" id="ramones">
+								<td>
+									RAMONES
 								</td>
 							</tr>
 							<tr onclick="setTheme('christmas')" id="christmas">
@@ -238,6 +252,17 @@
 									PASQUA
 								</td>
 							</tr>
+							</tr>
+						</table>
+					</center>
+				</div>
+				<div id="downloadBox" class="infoOff">
+					<center>
+						<table class="themeSelectorTable">
+							<tr>
+								<td>
+									<a href="https://chrome.google.com/webstore/detail/estensione-timecalculator/cpjmgfnppkpojnnaodaiealfggpkcmoj/related?hl=it&authuser=0" target="_blank" onclick="showDownload()" class="linkNoStyle">PLUGIN PER CHROME/EDGE</a>
+								</td>
 							</tr>
 						</table>
 					</center>

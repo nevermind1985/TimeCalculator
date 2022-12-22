@@ -666,6 +666,14 @@ function enableAudio() {
 }
 
 function showThemeSelector() {
+	if(document.getElementById('downloadBox').classList.contains('infoOn')) {
+		document.getElementById('downloadBox').classList.remove('infoOn');
+		document.getElementById('downloadBox').classList.add('infoOff');
+		document.getElementById('downloadClose').classList.remove('infoOn');
+		document.getElementById('downloadClose').classList.add('infoOff');
+		document.getElementById('download').classList.remove('infoOff');
+		document.getElementById('download').classList.add('infoOn');
+	}
 	if(document.getElementById('themeSelector').classList.contains('infoOff')) {
 		document.getElementById('themeSelector').classList.remove('infoOff');
 		document.getElementById('themeSelector').classList.add('infoOn');
@@ -684,11 +692,47 @@ function showThemeSelector() {
 	}
 }
 
+function showDownload() {
+	if(document.getElementById('themeSelector').classList.contains('infoOn')) {
+		document.getElementById('themeSelector').classList.remove('infoOn');
+		document.getElementById('themeSelector').classList.add('infoOff');
+		document.getElementById('themesClose').classList.remove('infoOn');
+		document.getElementById('themesClose').classList.add('infoOff');
+		document.getElementById('themes').classList.remove('infoOff');
+		document.getElementById('themes').classList.add('infoOn');
+	}
+	if(document.getElementById('downloadBox').classList.contains('infoOff')) {
+		document.getElementById('downloadBox').classList.remove('infoOff');
+		document.getElementById('downloadBox').classList.add('infoOn');
+		document.getElementById('download').classList.remove('infoOn');
+		document.getElementById('download').classList.add('infoOff');
+		document.getElementById('downloadClose').classList.remove('infoOff');
+		document.getElementById('downloadClose').classList.add('infoOn');
+		autoHideDownload();
+	} else {
+		document.getElementById('downloadBox').classList.remove('infoOn');
+		document.getElementById('downloadBox').classList.add('infoOff');
+		document.getElementById('downloadClose').classList.remove('infoOn');
+		document.getElementById('downloadClose').classList.add('infoOff');
+		document.getElementById('download').classList.remove('infoOff');
+		document.getElementById('download').classList.add('infoOn');
+	}
+}
+
 function autoHideThemeSelector() {
 	//DOPO 15 SECONDI CHIUDO AUTOMATICAMENTE IL THEME SELECTOR
 	setTimeout(function(){
 		if(document.getElementById('themeSelector').classList.contains('infoOn')) {
 			showThemeSelector();
+		} 
+	},15000);
+}
+
+function autoHideDownload() {
+	//DOPO 15 SECONDI CHIUDO AUTOMATICAMENTE IL THEME SELECTOR
+	setTimeout(function(){
+		if(document.getElementById('downloadBox').classList.contains('infoOn')) {
+			showDownload();
 		} 
 	},15000);
 }
@@ -743,6 +787,13 @@ function changeBackgroundImage(themeName) {
 					document.body.style.backgroundImage = "url('./images/themes/" + themeName + "/bg.gif')"
 					return;
 				}
+				image.onerror = function(){
+				image.src = "./images/bg.jpeg";
+				image.onload = function() {
+					document.body.style.backgroundImage = "url('./images/bg.jpeg')"
+					return;
+				}
+			}
 			}
 		}
 	}
@@ -884,3 +935,48 @@ function checkMarks() {
 		caricaDaTulip();
 	}
 }
+
+window.addEventListener('click', function(e){   
+  if (document.getElementById('themeSelector').contains(e.target) || document.getElementById('themeSelection').contains(e.target)){
+    return true;
+  } else{
+    if(document.getElementById('themeSelector').classList.contains('infoOn')) {
+		document.getElementById('themeSelector').classList.remove('infoOn');
+		document.getElementById('themeSelector').classList.add('infoOff');
+		document.getElementById('themesClose').classList.remove('infoOn');
+		document.getElementById('themesClose').classList.add('infoOff');
+		document.getElementById('themes').classList.remove('infoOff');
+		document.getElementById('themes').classList.add('infoOn');
+	}
+  }
+  
+  if (document.getElementById('downloadBox').contains(e.target) || document.getElementById('downloadSelection').contains(e.target)){
+    return true;
+  } else{
+    if(document.getElementById('downloadBox').classList.contains('infoOn')) {
+		document.getElementById('downloadBox').classList.remove('infoOn');
+		document.getElementById('downloadBox').classList.add('infoOff');
+		document.getElementById('downloadClose').classList.remove('infoOn');
+		document.getElementById('downloadClose').classList.add('infoOff');
+		document.getElementById('download').classList.remove('infoOff');
+		document.getElementById('download').classList.add('infoOn');
+	}
+  }
+  
+  if (document.getElementById('infoContainer').contains(e.target) || document.getElementById('infoSection').contains(e.target)){
+    return true;
+  } else{
+    if(document.getElementById('infoContainer').classList.contains('infoOn')) {
+		closeInfo()
+	}
+  }
+  
+  if (document.getElementById('settingsContainer').contains(e.target) || document.getElementById('settingsSelection').contains(e.target)){
+    return true;
+  } else{
+    if(document.getElementById('settingsContainer').classList.contains('infoOn')) {
+		closeSettings()
+	}
+  }
+  
+});

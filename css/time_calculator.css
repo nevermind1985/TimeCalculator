@@ -47,6 +47,12 @@ h2 {
 	-webkit-text-stroke-color: black;
 }
 
+.ramones td, .ramones h2 {
+	color: black!important;
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: white;
+}
+
 .christmas td, .christmas h2 {
 	color: white!important;
 	-webkit-text-stroke-width: 1px;
@@ -269,7 +275,7 @@ h2 {
 #infoSection {
 	position:absolute;
 	left: -3.5em;
-	top: 3.6em;
+	top: 3.5em;
 	width:3em;
 	height:3em;
 	-moz-border-radius: 15px;
@@ -288,7 +294,7 @@ h2 {
 #audioOption {
 	position:absolute;
 	left: -3.5em;
-	top: 6.85em;
+	top: 6.69em;
 	width:3em;
 	height:3em;
 	-moz-border-radius: 15px;
@@ -306,7 +312,7 @@ h2 {
 #themeSelection {
 	position:absolute;
 	left: -3.5em;
-	top: 10.1em;
+	top: 9.94em;
 	width:3em;
 	height:3em;
 	-moz-border-radius: 15px;
@@ -325,7 +331,7 @@ h2 {
 #settingsSelection {
 	position:absolute;
 	left: -3.5em;
-	top: 13.35em;
+	top: 13.16em;
 	width:3em;
 	height:3em;
 	-moz-border-radius: 15px;
@@ -341,10 +347,40 @@ h2 {
 	}
 }
 
+#downloadSelection {
+	position:absolute;
+	left: -3.5em;
+	top: 16.4em;
+	width:3em;
+	height:3em;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: 2px solid black;
+	background-color: red;
+	display:block;
+}
+
+@media only screen and (max-width: 1023px) {
+	#downloadSelection {
+		display: none;
+	}
+}
+
 #themeSelector {
 	position:absolute;
 	left: -13.6em;
-	top: 10.1em;
+	top: 9.94em;
+	width:10em;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: 2px solid black;
+	background-color: black;
+}
+
+#downloadBox {
+	position:absolute;
+	left: -13.6em;
+	top: 16.4em;
 	width:10em;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
@@ -594,6 +630,10 @@ h2 {
 	color: #000000 !important;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
+}
+
+.linkNoStyle {
+	text-decoration: none;
 }
 
 input[type=time] {
