@@ -384,8 +384,8 @@ function caricaDaTulipMain(campoTulip) {
 }
 
 function checkTimbraturaTulip(campoTulip, campoHtml, checkTipo) {
-	var tipoTimbratura = campoTulip.charAt(0);
-	var orario = campoTulip.substring(1);
+	var tipoTimbratura = campoTulip.charAt(5);
+	var orario = campoTulip.substring(0,5);
 	if(tipoTimbratura == checkTipo) {
 		var oraSplit = orario.split(":");		
 		try {
@@ -927,7 +927,7 @@ function checkMarks() {
 	const queryString = window.location.search;
 	var timbrature = queryString.substring(1);
 	
-	var check = timbrature.charAt(0);
+	var check = timbrature.charAt(5);
 	
 	if(check.indexOf('E') >= 0) {
 		var timbratureClean = timbrature.replace(/%20/g, " ");
