@@ -1,0 +1,25 @@
+{
+	"name": "Estensione TimeCalculator",
+	"version": "4.6.5",
+	"manifest_version": 3,
+	"description": "Crea link per puntare direttamente al time calculator",
+	"action": {
+		"default_title": "Apri impostazioni",
+		"default_popup": "tcPage.html"
+	},
+	"icons": { "16": "immagine.png",
+			   "32": "immagine.png",
+			   "48": "immagine.png",
+			   "128": "immagine.png"},
+	"permissions": [
+		"storage"
+	],
+	"content_scripts":
+	[
+		{
+			"matches": ["https://venistar.tulipweb.it/index.php/cartellino/*",
+						"https://tulipweb.retexspa.com/*"],
+			"js": ["jquery.js", "azioni.js"]
+		}
+	]
+}

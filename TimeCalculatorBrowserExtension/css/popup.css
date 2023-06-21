@@ -1,0 +1,161 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Regular.ttf')  format('truetype');
+}
+
+.font {
+  font-family: "Roboto";
+}
+
+.switch {
+	margin-top: 10px;
+	position: relative;
+	display: inline-block;
+	width: 40px;
+	height: 22px;
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #f70017;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 18px;
+	width: 18px;
+	left: 2px;
+	bottom: 2px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+input:checked + .slider {
+	background-color: #37bb00;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #37bb00;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(18px);
+	-ms-transform: translateX(18px);
+	transform: translateX(18px);
+}
+
+.slider.round {
+	border-radius: 24px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}
+
+.popupBody {
+	width: 235px;
+}
+
+.divButton {
+	margin-top: 20px;
+}
+
+.flex {
+	display: flex;
+}
+
+.center {
+	text-align: center;
+}
+
+.etichetta {
+	width: 193px;
+}
+
+.etichetta_small {
+	width: 163px;
+}
+
+.title {
+	margin-bottom: 1px;
+	margin-top: 1px;
+}
+
+.title_image {
+	width: 25px;
+	height: 25px;
+	margin-top: 5px;
+    margin-right: 14px;
+}
+
+.separator {
+	height: 1px;
+	background-color: black;
+}
+
+.button-53 {
+  background-color: #3DD1E7;
+  border: 0 solid #E5E7EB;
+  box-sizing: border-box;
+  color: #000000;
+  display: flex;
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1.75rem;
+  padding: .75rem 1.65rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none #000000 solid;
+  text-decoration-thickness: auto;
+  width: 100%;
+  max-width: 460px;
+  position: relative;
+  cursor: pointer;
+  transform: rotate(-2deg);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-53:focus {
+  outline: 0;
+}
+
+.button-53:after {
+  content: '';
+  position: absolute;
+  border: 1px solid #000000;
+  bottom: 4px;
+  left: 4px;
+  width: calc(100% - 1px);
+  height: calc(100% - 1px);
+}
+
+.button-53:hover:after {
+  bottom: 2px;
+  left: 2px;
+}
+
+@media (min-width: 768px) {
+  .button-53 {
+    padding: .75rem 3rem;
+    font-size: 1.25rem;
+  }
+}

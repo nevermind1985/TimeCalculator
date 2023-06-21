@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/css/popup.css">
+		<script type='text/javascript' src='jquery.js'></script>
+		<script type='text/javascript' src='/js/popup.js'></script>
+	</head>
+	<body class="popupBody font">
+		<form>
+			<div class="flex">
+				<img src="immagine.png" class="title_image">
+				<h1 class="center title">
+					IMPOSTAZIONI
+				</h1>
+			</div>
+			
+			<hr class="separator" />
+			<div class="flex">
+				<p class="etichetta">
+					<label>Abilita popup assenze:</label>
+				</p>
+				<label class="switch">
+					<input type="checkbox" id="f_spop_a">
+					<span class="slider round"></span>
+				</label>
+			</div>
+			<div class="flex">
+				<p class="etichetta">
+					<label>Abilita popup timbrature mancanti:</label>
+				</p>
+				<label class="switch">
+					<input type="checkbox" id="f_spop_t">
+					<span class="slider round"></span>
+				</label>
+			</div>
+			<div class="flex">
+				<p class="etichetta_small">
+					Quante ore devo lavorare: 
+				</p>
+				<input type="time" id="f_wtime"> 
+			</div>
+			<div class="divButton">
+				<button class="button-53" role="button" id="saveSettings">SALVA</button>
+			</div>
+		</form>
+		<script type='text/javascript' src='/js/popup2.js'></script>
+	</body>
+</html>
