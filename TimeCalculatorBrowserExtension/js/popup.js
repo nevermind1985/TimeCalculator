@@ -12,6 +12,36 @@ $(document).ready(function () {
 		}
 	});
 	
+	chrome.storage.sync.get("workingTime1", function (obj) {
+		if(obj.workingTime1) {
+			document.getElementById('f_wtime_1').value = obj.workingTime1;
+		}
+	});
+	
+	chrome.storage.sync.get("workingTime2", function (obj) {
+		if(obj.workingTime2) {
+			document.getElementById('f_wtime_2').value = obj.workingTime2;
+		}
+	});
+	
+	chrome.storage.sync.get("workingTime3", function (obj) {
+		if(obj.workingTime3) {
+			document.getElementById('f_wtime_3').value = obj.workingTime3;
+		}
+	});
+	
+	chrome.storage.sync.get("workingTime4", function (obj) {
+		if(obj.workingTime4) {
+			document.getElementById('f_wtime_4').value = obj.workingTime4;
+		}
+	});
+	
+	chrome.storage.sync.get("workingTime5", function (obj) {
+		if(obj.workingTime5) {
+			document.getElementById('f_wtime_5').value = obj.workingTime5;
+		}
+	});
+	
 	chrome.storage.sync.get("popupEnabled_a", function (obj) {
 		if (obj.popupEnabled_a !== undefined && obj.popupEnabled_a !== null) {
 			document.getElementById('f_spop_a').checked = obj.popupEnabled_a;
@@ -52,4 +82,31 @@ function salvaDati() {
 	var defaultTime = {}, key = "workingTime";
 	defaultTime[key] = workingTimeValueSetted;
 	chrome.storage.sync.set(defaultTime);
+	
+	var workingTimeValueSetted = document.getElementById('f_wtime_1').value;
+	var defaultTime = {}, key = "workingTime1";
+	defaultTime[key] = workingTimeValueSetted;
+	chrome.storage.sync.set(defaultTime);
+	
+	var workingTimeValueSetted = document.getElementById('f_wtime_2').value;
+	var defaultTime = {}, key = "workingTime2";
+	defaultTime[key] = workingTimeValueSetted;
+	chrome.storage.sync.set(defaultTime);
+	
+	var workingTimeValueSetted = document.getElementById('f_wtime_3').value;
+	var defaultTime = {}, key = "workingTime3";
+	defaultTime[key] = workingTimeValueSetted;
+	chrome.storage.sync.set(defaultTime);
+	
+	var workingTimeValueSetted = document.getElementById('f_wtime_4').value;
+	var defaultTime = {}, key = "workingTime4";
+	defaultTime[key] = workingTimeValueSetted;
+	chrome.storage.sync.set(defaultTime);
+	
+	var workingTimeValueSetted = document.getElementById('f_wtime_5').value;
+	var defaultTime = {}, key = "workingTime5";
+	defaultTime[key] = workingTimeValueSetted;
+	chrome.storage.sync.set(defaultTime);
+	
+	window.close();
 }
