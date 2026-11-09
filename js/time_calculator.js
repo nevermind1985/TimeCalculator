@@ -357,22 +357,27 @@ function caricaDaTulipMain(campoTulip) {
 	var chk=false;
 	var elTest = 0;
 	var elId = 1;
+	var isLast = false;
 	
 	if(campoIn == "") {
 		clickReset();
 		return;
 	} 
 	try {
+		
 		for (var i = 0; i < el.length; i++) {
+			if((el[i].split("[W]"))[0] === '%3Ca') {
+				isLast = true;
+			}
 			elTest = i+1;
 			if(i > 3 && elTest%2==1) { // I must add automatically new enter and exit section
 				addTime();
 			}
 			if(elTest%2==0) {
-				chk = checkTimbraturaTulip((el[i].split("[W]"))[0],'usc'+elId,'U');
+				chk = checkTimbraturaTulip((el[i].split("[W]"))[0],'usc'+elId,'U', isLast);
 				elId++;
 			} else {
-				chk = checkTimbraturaTulip((el[i].split("[W]"))[0],'ent'+elId,'E');
+				chk = checkTimbraturaTulip((el[i].split("[W]"))[0],'ent'+elId,'E', isLast);
 			}
 			if(!chk) {
 				return;
@@ -383,7 +388,7 @@ function caricaDaTulipMain(campoTulip) {
 	calcolaOrari();
 }
 
-function checkTimbraturaTulip(campoTulip, campoHtml, checkTipo) {
+function checkTimbraturaTulip(campoTulip, campoHtml, checkTipo, isLast) {
 	var tipoTimbratura = campoTulip.charAt(5);
 	var orario = campoTulip.substring(0,5);
 	if(tipoTimbratura == checkTipo) {
@@ -402,7 +407,10 @@ function checkTimbraturaTulip(campoTulip, campoHtml, checkTipo) {
 			return false;
 		}
 	}
-	alert('ER3 - La stringa inserita non è corretta!');
+	if(isLast) {
+		return false;
+	}
+	alert('ER3 - La stringa inserita non è corretta!' + ' - ' + isLast + ' - ' + campoTulip);
 	clickReset();
 	return false;
 }
