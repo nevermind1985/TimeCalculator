@@ -366,7 +366,7 @@ function caricaDaTulipMain(campoTulip) {
 	try {
 		
 		for (var i = 0; i < el.length; i++) {
-			if((el[i].split("[W]"))[0] === '%3Ca') {
+			if((el[i].split("[W]"))[0].startsWith('href')) {
 				isLast = true;
 			}
 			elTest = i+1;
@@ -410,7 +410,7 @@ function checkTimbraturaTulip(campoTulip, campoHtml, checkTipo, isLast) {
 	if(isLast) {
 		return false;
 	}
-	alert('ER3 - La stringa inserita non è corretta!' + ' - ' + isLast + ' - ' + campoTulip);
+	alert('ER3 - La stringa inserita non è corretta!' + campoTulip);
 	clickReset();
 	return false;
 }

@@ -6,6 +6,7 @@ var workingHours4 = "08:00";
 var workingHours5 = "08:00";
 var showPopups_a = false;
 var showPopups_t = true;
+var checkingDay = 0;
 
 $(document).ready(function() {
 	chrome.storage.sync.get("workingTime", function (obj) {
@@ -151,7 +152,6 @@ function checkTimeLink() {
 	$("[role='gridcell']").each(function(i, obj) {
 		var divObject = obj.innerHTML;
 		if((obj.outerHTML).indexOf(giornoID) >= 0) {
-			
 			if(dateCheckFrom <= divObject && divObject < todayStr) {
 				checkMissingTime = true;
 				checkingDate = divObject;
